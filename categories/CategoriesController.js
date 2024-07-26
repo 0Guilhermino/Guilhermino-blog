@@ -18,12 +18,11 @@ router.get('/admin/categories', (req, res) => {
 
 router.get('/admin/categories/edit/:id', (req, res) => {
     const id = req.params.id;
-    console.log(id, 'angelo')
-    Category.findOne({ where: {id}, raw: true }).then((category) => {
+    Category.findByPk(id).then((category) => {
         res.render('admin/categories/update.ejs', { category });
     }).catch(err => {
         console.log(err);
-        res.render('admin/categories/update.ejs');
+        res.render('admin/categories/index.ejs');
     });
 })
 
@@ -37,7 +36,7 @@ router.post('/categories/save', (req, res) => {
             title,
             slug
         }).then(() => {
-            res.redirect('/');
+            res.redirect('/admin/categories');
         }).catch(err => {
             console.log(err);
         })
@@ -50,7 +49,6 @@ router.post('/categories/delete', (req, res) => {
     const categoryId = req.body.id;
  
     if(categoryId && !isNaN(categoryId)){
-        console.log('entrou no if nan');
         Category.destroy({
             where: {
                 id: categoryId
@@ -73,7 +71,6 @@ router.post('/categories/put', (req, res) => {
     body.slug = body.title.toLowerCase().split(' ').join('-');
     
     if(body){
-        console.log(body, 'entrou no if body');
         Category.update(body,{
             where: {
                 id: body.id
