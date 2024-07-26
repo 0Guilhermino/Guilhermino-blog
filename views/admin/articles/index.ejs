@@ -1,0 +1,51 @@
+<%- include ('../../partials/header.ejs') %>
+<%- include ('../../partials/navbar.ejs') %>
+<body>
+    <div class="container">
+        <hr>
+        <h2 class="d-inline align-bottom" >Artigos</h2>
+        <a class="btn btn-success ml-2" href="/admin/categories/new" title="Criar nova categoria">+</a>
+        <hr>
+      
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Slug</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- <% categories.forEach(function(category) { %>
+                        <tr>
+                            <td><%= category.id%></td>
+                            <td><%= category.title%></td>
+                            <td><%= category.slug%></td>
+                            <td>
+                                <a class="btn btn-warning" href="/admin/categories/edit/<%= category.id%>">Editar</a>
+                                <form action="/categories/delete" method="POST" onsubmit="teste(event)"
+                                class="d-inline">
+                                    <input type="hidden" name="id" value="<%= category.id%>">
+                                    <button class="btn btn-danger">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                      <% }); %> -->
+                    
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</body>
+<%- include ('../../partials/footer.ejs') %>
+
+<script>
+function teste(event){
+    if (!confirm("Deseja excluir o artigo?")){
+        event.preventDefault();
+    }
+}
+</script>
