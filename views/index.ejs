@@ -1,5 +1,24 @@
 <%- include ('partials/header.ejs') %>
+<%- include ('partials/home-navbar.ejs') %>
 <body>
-    <h3>Blog Guilhermino</h3>
+    <div class="container pt-4">
+        <div class="jumbotron">
+            <h1 class="display-4">Bem vindo!</h1>
+            <p class="lead">Este é um simples blog criado como POC de esutdos de node no backend.</p>
+            <hr class="my-4">
+            <!-- <p>Ele usa classes utilitárias para tipografia e espaçamento de conteúdo, dentro do maior container.</p> -->
+            <a class="btn btn-primary btn-lg" href="#" role="button">Leia mais</a>
+          </div>
+        <% articles.forEach(function(article) { %>
+            <div class="card my-3">
+                <div class="card-header">
+                    <h2><%= article.title  %></h2>
+                </div>
+                <div class="card-body">
+                    <a href="/<%= article.slug  %>" class="btn btn-success">Ler mais</a>
+                </div>
+            </div>
+          <% }); %>
+    </div>
 </body>
 <%- include ('partials/footer.ejs') %>

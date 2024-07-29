@@ -36,8 +36,64 @@ app.use('/', articlesController);
 
 //rotas
 app.get('/', (req, res) => {
-    res.render('index');
+    Article.findAll({
+            order: [['id', 'DESC']]  
+    }).then((articles) => {
+        Category.findAll().then((categories) => {
+            res.render('index', {articles, categories});
+        }).catch((err) => {
+        console.log(err);
+        });
+    })
 });
+
+app.get('/:slug', (req, res) => {
+    const slug = req.params.slug;
+    Article.findOne({
+        where: {
+            slug
+        }
+    }).then((article) => {
+        if(article){
+            Category.findAll().then((categories) => {
+                res.render('article', {article, categories});
+            }).catch((err) => {
+            console.log(err);
+            });
+        } else {
+            res.redirect('/');
+        }
+    }).catch((error) => {console.log(error);res.redirect('/') });
+});
+
+app.get('/category/:id', (req, res) => {
+    const id = req.params.id;
+    console.log('entrou aqui');
+    Category.findOne({ 
+        where: {
+            id: id
+        },
+        include: [{model: Article}]
+     }).then((category) => {
+        if (category) {
+            Category.findAll().then((categories) => {
+                console.log({
+                    articles: category.articles,
+                    categories,
+                }, 'obj angelo');
+                res.render('index', {
+                    articles: category.articles,
+                    categories,
+                });
+            });
+        } else {
+         res.render('/');
+        }
+    }).catch(err => {
+        console.log(err);
+        res.render('index');
+    });
+})
 
 app.listen(port, (req, res) => {
     console.log(`Server is running at http://localhost:${port}`);

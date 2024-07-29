@@ -14,7 +14,7 @@
                     <textarea name="body" id="article" 
                     class="form-control " placeholder="Escreva o artigo aqui!"></textarea>
                     <label for="categoryId" class="mt-1">Categoria</label>
-                    <select class="form-control mb-3" id="categoryId" name="categoryId">
+                    <select class="form-control mb-3" id="categoryId" name="categoryId" required>
                         <option value="">Selecione uma categoria</option>
                         <% categories.forEach(function(category) { %>
                             <option value="<%= category.id %>">

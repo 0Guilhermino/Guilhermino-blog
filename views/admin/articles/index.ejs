@@ -14,6 +14,7 @@
                         <th>ID</th>
                         <th>Título</th>
                         <th>Slug</th>
+                        <th>Categoria</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -23,12 +24,13 @@
                             <td><%= article.id%></td>
                             <td><%= article.title%></td>
                             <td><%= article.slug%></td>
+                            <td><%= article.category.title %></td>
                             <td>
-                                <a class="btn btn-warning" href="/admin/articles/edit/<%= article.id%>">Editar</a>
+                                <!-- <a class="btn btn-warning" href="/admin/articles/edit/<%= article.id%>">Editar</a> -->
                                 <form action="/articles/delete" method="POST" onsubmit="teste(event)"
                                 class="d-inline">
                                     <input type="hidden" name="id" value="<%= article.id%>">
-                                    <button class="btn btn-danger">Excluir</button>
+                                    <button class="btn btn-danger" type="submit">Excluir</button>
                                 </form>
                             </td>
                         </tr>

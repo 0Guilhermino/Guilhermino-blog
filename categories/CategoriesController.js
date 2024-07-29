@@ -26,7 +26,6 @@ router.get('/admin/categories/edit/:id', (req, res) => {
     });
 })
 
-
 router.post('/categories/save', (req, res) => {
     const title = req.body.title;
     const slug = title.toLowerCase().split(' ').join('-');
