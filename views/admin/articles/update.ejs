@@ -12,20 +12,22 @@
                     <input type="text" class="form-control mb-4" minlength="3" required
                     value="<%= article.title %>"
                     name="title" placeholder="Defina o título do artigo.">
-                    <textarea name="body" id="article" 
-                    value="<%= category.body %>"
-                    class="form-control " placeholder="Escreva o artigo aqui!"></textarea>
+                    <textarea name="body" id="article2"
+                    class="form-control " placeholder="Escreva o artigo aqui!">
+                        <%- article.body %>
+                    </textarea>
+                    <input type="hidden" name="id" value="<%- article.id %>">
                     <label for="categoryId" class="mt-1">Categoria</label>
                     <select class="form-control mb-3" id="categoryId" name="categoryId" 
-                     value="<%= category.body %>" required>
+                     required>
                         <option value="">Selecione uma categoria</option>
                         <% categories.forEach(function(category) { %>
-                            <option value="<%= category.id %>">
+                            <option value="<%= category.id %>" <%= category.id === article.categoryId ? 'selected' : '' %>>
                                 <%= category.title %>
                             </option>
                         <% }); %>
                     </select>
-                    <button class="btn btn-success">Atualizar</button>
+                    <button class="btn btn-success" type="submit">Atualizar</button>
                 </form>
             </div>
         </div>  
@@ -33,3 +35,28 @@
     </div>
 </body>
 <%- include ('../../partials/footer.ejs') %>
+
+<script src="/tinymce/js/tinymce/tinymce.min.js"></script>
+
+<script>
+    tinymce.init({
+        language: 'pt_BR',
+        selector: "#article2",
+        plugins: [
+            'advlist',
+            'autolink',
+            'link',
+            'image',
+            'lists',
+            'preview',
+            'searchreplace',
+            'wordcount',
+            'fullscreen',
+            'insertdatetime',
+            'media',
+            'save',
+            'table',
+            'emoticons',
+        ]
+    })
+</script>

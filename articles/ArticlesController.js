@@ -65,7 +65,8 @@ router.post('/articles/put', (req, res) => {
     
     let body = req.body;
     body.slug = body.title.toLowerCase().split(' ').join('-');
-    
+
+    console.log(body, 'body angelo')
     if(body){
         Article.update(body,{
             where: {
@@ -86,10 +87,10 @@ router.post('/articles/put', (req, res) => {
 
 router.get('/admin/articles/edit/:id', (req, res) => {
     const id = req.params.id;
-    Article.findByPk(id, {raw: true}).then((article) => {
-        Category.findAll({raw: true}).then((categories) => {
+    Article.findByPk(id).then((article) => {
+        Category.findAll().then((categories) => {
             console.log({article, categories}, '{article, categories} angelo');
-            res.render('admin/articles/new.ejs', {article, categories});
+            res.render('admin/articles/update.ejs', {article, categories});
             }).catch((err) => {
                 console.log(err);
                 res.render('admin/articles/new.ejs');
