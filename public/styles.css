@@ -2,3 +2,10 @@ img {
     max-width: 100%;
     object-fit: cover;
 }
+
+.td_slug {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

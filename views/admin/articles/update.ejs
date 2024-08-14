@@ -12,7 +12,7 @@
                     <input type="text" class="form-control mb-4" minlength="3" required
                     value="<%= article.title %>"
                     name="title" placeholder="Defina o título do artigo.">
-                    <textarea name="body" id="article2"
+                    <textarea name="body" id="articleEdit"
                     class="form-control " placeholder="Escreva o artigo aqui!">
                         <%- article.body %>
                     </textarea>
@@ -22,7 +22,8 @@
                      required>
                         <option value="">Selecione uma categoria</option>
                         <% categories.forEach(function(category) { %>
-                            <option value="<%= category.id %>" <%= category.id === article.categoryId ? 'selected' : '' %>>
+                            <option value="<%= category.id %>" 
+                                <%= category.id === article.categoryId ? 'selected' : '' %> >
                                 <%= category.title %>
                             </option>
                         <% }); %>
@@ -41,7 +42,7 @@
 <script>
     tinymce.init({
         language: 'pt_BR',
-        selector: "#article2",
+        selector: "#articleEdit",
         plugins: [
             'advlist',
             'autolink',
