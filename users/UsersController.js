@@ -13,9 +13,6 @@ router.get('/admin/users/create', (req, res) => {
 
 router.post('/admin/users/create', (req, res) => {
     const body = req.body;
-
-    console.log(body, 'body angelo');
-
     if (body) {
         User.create(body).then(() => {
           res.render('admin/users/create.ejs');
