@@ -10,6 +10,9 @@ const Category = require('./categories/Category');
 const articlesController = require('./articles/ArticlesController');
 const Article = require('./articles/Article'); 
 
+const userController = require('./users/UsersController');
+const User = require('./users/User'); 
+
 //views
 app.set('view engine', 'ejs');
 
@@ -33,6 +36,7 @@ connection
 
 app.use('/', categoriesController);
 app.use('/', articlesController);
+app.use('/', userController);
 
 //rotas
 app.get('/', (req, res) => {
