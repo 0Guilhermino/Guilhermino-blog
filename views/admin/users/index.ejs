@@ -1,0 +1,40 @@
+<%- include ('../../partials/header.ejs') %>
+<%- include ('../../partials/navbar.ejs') %>
+<body>
+    <div class="container">
+        <hr>
+        <h2 class="d-inline align-bottom" >Usuários</h2>
+        <a class="btn btn-success ml-2" href="/admin/articles/new" title="Criar nova categoria">+</a>
+        <hr>
+      
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Data da criação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% users.forEach(function(user) { %>
+                        <tr>
+                            <td><%= user.email%></td>
+                            <td><%= new Date(user.createdAt).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) %></td>
+                        </tr>
+                      <% }); %>
+                    
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</body>
+<%- include ('../../partials/footer.ejs') %>
+
+<script>
+function removeArticle(event){
+    if (!confirm("Deseja excluir o artigo?")){
+        event.preventDefault();
+    }
+}
+</script>
