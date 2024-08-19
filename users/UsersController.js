@@ -9,6 +9,10 @@ router.get('/admin/users/create', (req, res) => {
     res.render('admin/users/create.ejs');
 })
 
+router.get('/login', (req, res) => {
+    res.render('admin/users/login.ejs');
+})
+
 router.get('/admin/users', (req, res) => {
     User.findAll()
     .then((users) => {
@@ -63,6 +67,35 @@ router.post('/admin/users/new', validateUserData, async (req, res) => {
         }
 
         await createUser(email, password);
+        res.redirect('/');
+    } catch (err) {
+        console.error("Erro ao criar usuário:", err);
+        res.status(500).send("Erro interno no servidor");
+    }
+});
+
+router.post('/authenticate', async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const user = await User.findOne({ where: { email } });
+        
+        if (user) {
+            const validPassword = bcrypt.compareSync(password, user.password);
+            if (validPassword) {
+                req.session.user = {
+                    id: user.id,
+                    email: user.email,
+                }
+                return res.redirect('/admin/articles');
+            } else {
+                return res.redirect('/login');
+            }
+
+        } else {
+            return res.redirect('/login');
+        }
+
         res.redirect('/');
     } catch (err) {
         console.error("Erro ao criar usuário:", err);

@@ -2,12 +2,14 @@ const express = require('express');
 const router = express.Router();
 
 const Category = require('./Category');
+const adminAuth = require('../middlewares/adminAuth');
 
-router.get('/admin/categories/new', (req, res) => {
+
+router.get('/admin/categories/new', adminAuth, (req, res) => {
     res.render('admin/categories/new.ejs');
 })
 
-router.get('/admin/categories', (req, res) => {
+router.get('/admin/categories', adminAuth, (req, res) => {
     Category.findAll({ raw: true }).then((categories) => {
         res.render('admin/categories/index.ejs', { categories });
     }).catch(err => {
@@ -16,7 +18,7 @@ router.get('/admin/categories', (req, res) => {
     });
 })
 
-router.get('/admin/categories/edit/:id', (req, res) => {
+router.get('/admin/categories/edit/:id', adminAuth, (req, res) => {
     const id = req.params.id;
     Category.findByPk(id).then((category) => {
         res.render('admin/categories/update.ejs', { category });
